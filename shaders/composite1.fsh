@@ -257,10 +257,10 @@ return (pow(max(dot(vec,normalize(pos))*0.5+0.5,0.0),N)*(N+1)/6.28)*(1-rainStren
 
 }
 
-float noisepattern(vec2 pos, float sample) {
+float noisepattern(vec2 pos, float samp) {
 	float noise = abs(fract(sin(dot(pos ,vec2(18.9898f,28.633f))) * 4378.5453f));
 
-	noise *= sample;
+	noise *= samp;
 	return noise;
 }
 

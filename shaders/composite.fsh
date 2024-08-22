@@ -496,10 +496,10 @@ float find_closest_calc(vec2 pos, float c0)
 }
 
 
-float noisepattern(vec2 pos, float sample) {
+float noisepattern(vec2 pos, float samp) {
 	float noise = abs(fract(sin(dot(pos ,vec2(18.9898f,28.633f))) * 4378.5453f));
 
-	noise *= sample;
+	noise *= samp;
 	return noise;
 }
 
@@ -841,10 +841,10 @@ float getSSAO() {
 		for (int i = 1; i < nbdir; i++) {
 			for (int j = 1; j < sampledir; j++) {
 				vec2 samplecoord = vec2(cos(progress), sin(progress)) * (0.5 + dither * 0.5) * (j / sampledir / (ld(pixeldepth) * 5.0)) *projrad * vec2(1.0, aspectRatio) + texcoord.xy;
-				float sample = texture2D(depthtex1,samplecoord).x;
-				vec3 sprojpos = convertScreenSpaceToWorldSpace(samplecoord,sample);
+				float samp = texture2D(depthtex1,samplecoord).x;
+				vec3 sprojpos = convertScreenSpaceToWorldSpace(samplecoord,samp);
 				float angle = pow(min(1.0-dot(normal,normalize(sprojpos-projpos)),1.0),2.0);
-				float dist = pow(min(abs(ld(sample)-ld(pixeldepth)),0.015)/0.015,2.0);
+				float dist = pow(min(abs(ld(samp)-ld(pixeldepth)),0.015)/0.015,2.0);
 				float temp = min(dist+angle,1.0);
 				ao += pow(temp,3.0);
 				progress += (1.0-temp)/nbdir*3.14;
